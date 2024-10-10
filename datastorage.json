@@ -1,0 +1,77 @@
+[
+    {
+      "ID": 1,
+      "type": "radio",
+      "price": 15,
+      "manufacturer": "Leila Hökki & co",
+      "colors": [
+        "black",
+        "yellow",
+        "red"
+      ],
+      "info": {
+        "comments": "high quality",
+        "model": "silver",
+        "energyclass": "E"
+      }
+    },
+    {
+      "ID": 2,
+      "type": "stereo",
+      "price": 25,
+      "manufacturer": "Ocean",
+      "colors": [
+        "white",
+        "black",
+        "green"
+      ],
+      "info": {
+        "comments": "no comments",
+        "model": "XL",
+        "energyclass": "A++"
+      }
+    },
+    {
+      "ID": 3,
+      "type": "radio",
+      "price": 123,
+      "manufacturer": "Products inc.",
+      "colors": [
+        "yellow",
+        "green",
+        "white"
+      ],
+      "info": {
+        "comments": "old model",
+        "model": "VIP",
+        "energyclass": "E"
+      }
+    },
+    {
+      "ID": 4,
+      "type": "moccamaster",
+      "price": 36,
+      "manufacturer": "Antony Lee & junior",
+      "colors": [
+        "blue",
+        "white",
+        "yellow"
+      ],
+      "info": {
+        "comments": "high quality",
+        "model": "silver",
+        "energyclass": "C"
+      }
+    },
+    {
+      "ID": 5,
+      "type": "monitor",
+      "price": 36,
+      "manufacturer": "Ocean",
+      "colors": [
+        "black",
+        "white",
+        "yellow"
+      ]
+    }
+  ]
