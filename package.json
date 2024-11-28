@@ -1,7 +1,6 @@
 {
   "name": "hagos_elias_product",
   "version": "1.0.0",
-  "description": "",
   "main": "productStorage.js",
   "scripts": {
     "test": "jest"
@@ -11,5 +10,6 @@
   "license": "ISC",
   "devDependencies": {
     "jest": "^29.7.0"
-  }
+  },
+  "description": ""
 }

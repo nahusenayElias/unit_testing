@@ -1,141 +1,45 @@
-module.exports = class DefaultData {
-  constructor() {
-    this.items = [
-      {
-        ID: 1,
-        type: "radio",
-        price: 15,
-        manufacturer: "Leila Hökki & co",
-        colors: ["black", "yellow", "red"],
-        info: {
-          comments: "high quality",
-          model: "silver",
-          energyclass: "E",
-        },
-      },
-      {
-        ID: 2,
-        type: "stereo",
-        price: 25,
-        manufacturer: "Ocean",
-        colors: ["white", "black", "green"],
-        info: {
-          comments: "no comments",
-          model: "XL",
-          energyclass: "A++",
-        },
-      },
-      {
-        ID: 3,
-        type: "radio",
-        price: 123,
-        manufacturer: "Products inc.",
-        colors: ["yellow", "green", "white"],
-        info: {
-          comments: "old model",
-          model: "VIP",
-          energyclass: "E",
-        },
-      },
-      {
-        ID: 4,
-        type: "moccamaster",
-        price: 36,
-        manufacturer: "Antony Lee & junior",
-        colors: ["blue", "white", "yellow"],
-        info: {
-          comments: "high quality",
-          model: "silver",
-          energyclass: "C",
-        },
-      },
-      {
-        ID: 5,
-        type: "monitor",
-        price: 36,
-        manufacturer: "Ocean",
-        colors: ["black", "white", "yellow"],
-      },
-    ];
-  }
-
-  // getItemById
-  getItemById(id) {
-    const item = this.items.find((item) => item.ID === id);
-    if (!item) {
-      throw new Error(`Item with ID ${id} not found`);
+class ProductStorage {
+  constructor(jsondata) {
+    if (!jsondata) {
+      throw new Error('data storage missing');
     }
-    return item;
+    this.data = JSON.parse(jsondata);
   }
 
-  // getColorsByID
-  getColorsById(id) {
-    const item = this.getItemById(id);
-    return item.colors;
+  get_info(searchKey) {
+    const product = this.data.find(item => item.ID === searchKey);
+    return product && product.info ? product.info : null;
   }
 
-  // get price by ID
-  getPriceById(id) {
-    const item = this.getItemById(id);
-    return item.price;
-  }
-
-  // get manufacturer by ID
-  getManufacturerById(id) {
-    const item = this.getItemById(id);
-    return item.manufacturer;
-  }
-
-  // get info by ID
-  getInfoById(id) {
-    const item = this.getItemById(id);
-    return item.info || {};
-  }
-  // method to get price by ID
-  getPriceById(id) {
-    const item = this.items.find((item) => item.ID === id);
-    if (!item) {
-      throw new Error("nothing found with given searchValue");
+  get_Price(ID) {
+    const product = this.data.find(item => item.ID === ID);
+    if (!product) {
+      throw new Error('nothing found with given searchValue');
     }
-    return item.price;
+    return product.price;
   }
 
-
-  hasNonEmptyInfo(searchKey) {
-    if (searchKey === undefined || searchKey === null) {
-      return false;
-    }
-
-    const item = this.items.find((item) => item.ID === searchKey);
-
-    if (!item || !item.info || Object.keys(item.info).length === 0) {
-      return false;
-    }
-
-    return true;
+  has_info(searchKey) {
+    if (searchKey === undefined) return false;
+    const product = this.data.find(item => item.ID === searchKey);
+    return !!(product && product.info && Object.keys(product.info).length > 0);
   }
 
   get_a_product_matching_ID(searchKey) {
-    if (searchKey === undefined || searchKey === null) {
-      throw new Error("missing parameter");
+    if (searchKey === undefined) {
+      throw new Error('missing parameter');
     }
-
-    const product = this.items.find((item) => item.ID === searchKey);
-
-    return product || null;
+    return this.data.find(item => item.ID === searchKey) || null;
   }
 
   get_manufacturers_of_products_by_type(searchKey) {
-    if (searchKey === undefined || searchKey === null) {
-      throw new Error("missing parameter");
+    if (searchKey === undefined) {
+      throw new Error('missing parameter');
     }
-
-    const manufacturers = this.items
-      .filter((item) => item.type === searchKey)
-      .map((item) => item.manufacturer);
-
-    return manufacturers;
+    return [...new Set(this.data
+      .filter(item => item.type.toLowerCase() === searchKey.toLowerCase())
+      .map(item => item.manufacturer))];
   }
-};
+}
 
-
+module.exports = ProductStorage; // Ensure this matches the class name
