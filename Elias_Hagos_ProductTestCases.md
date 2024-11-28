@@ -1,158 +1,81 @@
-# DefaultData Test Cases
+# Product Class API
 
-## Test of: Data Missing
+## Constructor
 
-### Test 1: Missing parameter throw an exception
+### **constructor(jsondata)**
+Initializes the `ProductStorage` object with JSON data.
 
->> Description: Verifies that an error is thrown when product data is missing.
-- **Expected Outcome**: Rejects with an error "product data missing".
+> **Parameters:**
+> - `jsondata`: A JSON string representing the data storage object.
 
-## Testing of: getPriceById, getManufacturerById, getInfoById
+> **Returns:**
+> - Initializes the object if valid JSON is provided.
 
-### Setup
-- Initializes a new instance of `DefaultData` before each test.
+> **Throws:**
+> - If the parameter is missing or invalid, the constructor throws an error `'data storage missing'`.
 
-### Test 1: Should return colors for ID 1
+---
 
->> Description: Checks if the correct colors are returned for product ID 1.
-- **Expected Outcome**: Returns `["black", "yellow", "red"]`.
+## Methods
 
-### Test 2: Should throw error for invalid ID in getColorsById
+### **get_info(searchKey)**
+Searches for a product matching the `searchKey` (ID) and returns the associated info object. If no match is found, it returns null.
 
->> Description: Verifies that an error is thrown for an invalid ID in getColorsById.
-- **Expected Outcome**: Throws an error "Item with ID 10 not found".
+> **Parameters:**
+> - `searchKey`: The ID of the product.
 
-### Test 3: Should return price for ID 2
+> **Returns:**
+> - Returns the info object of the product matching the `searchKey`. If no product is found or if `searchKey` is missing, null will be returned.
 
->> Description: Checks if the correct price is returned for product ID 2.
-- **Expected Outcome**: Returns `25`.
+---
 
-### Test 4: Should throw error for invalid ID in getPriceById
+### **get_Price(ID)**
+Retrieves the price of a product based on its ID.
 
->> Description: Verifies that an error is thrown for an invalid ID in getPriceById.
-- **Expected Outcome**: Throws an error "nothing found with given searchValue".
+> **Parameters:**
+> - `ID`: The ID of the product whose price is to be returned.
 
-### Test 5: Should return manufacturer for ID 4
+> **Returns:**
+> - Returns the price of a product matching the given ID.
 
->> Description: Checks if the correct manufacturer is returned for product ID 4.
-- **Expected Outcome**: Returns "Antony Lee & junior".
+> **Throws:**
+> - If no product with the given ID is found, it throws an exception `'nothing found with given searchValue'`.
 
-### Test 6: Should return manufacturer for ID 5
+---
 
->> Description: Checks if the correct manufacturer is returned for product ID 5.
-- **Expected Outcome**: Returns "Ocean".
+### **has_info(searchKey)**
+Checks if a product has an info object based on its ID.
 
-### Test 7: Should throw error for invalid ID in getManufacturerById
+> **Parameters:**
+> - `searchKey`: The ID of the product to be searched.
 
->> Description: Verifies that an error is thrown for an invalid ID in getManufacturerById.
-- **Expected Outcome**: Throws an error "Item with ID 999 not found".
+> **Returns:**
+> - Returns true if the product matching the `searchKey` has a non-empty info object; otherwise, returns false. If `searchKey` is missing, false will be returned.
 
-### Test 8: Should return info for ID 3
+---
 
->> Description: Checks if the correct info object is returned for product ID 3.
-- **Expected Outcome**: Returns `{ comments: "old model", model: "VIP", energyclass: "E" }`.
+### **get_a_product_matching_ID(searchKey)**
+Searches for a product using its unique ID (the primary key).
 
-### Test 9: Should return empty object for ID 5 with no info
+> **Parameters:**
+> - `searchKey`: The primary key ID of the product.
 
->> Description: Verifies that an empty object is returned for a product with no info.
-- **Expected Outcome**: Returns `{}`.
+> **Returns:**
+> - Returns the complete product object matching the ID or null if there is no match.
 
-### Test 10: Should throw error for invalid ID in getInfoById
+> **Throws:**
+> - If `searchKey` is missing, it throws an exception `'missing parameter'`.
 
->> Description: Verifies that an error is thrown for an invalid ID in getInfoById.
-- **Expected Outcome**: Throws an error "Item with ID 7 not found".
+---
 
-### Test 11: Should return price for ID 1
+### **get_manufacturers_of_products_by_type(searchKey)**
+Returns an array of manufacturers for products matching a specified type.
 
->> Description: Checks if the correct price is returned for product ID 1.
-- **Expected Outcome**: Returns `15`.
+> **Parameters:**
+> - `searchKey`: The type of products to filter by.
 
-### Test 12: Should throw error for invalid ID
+> **Returns:**
+> - Returns an array of manufacturers for products matching the specified type or an empty array if no matches are found.
 
->> Description: Verifies that an error is thrown for an invalid ID in getPriceById.
-- **Expected Outcome**: Throws an error "nothing found with given searchValue".
-
-## Test method to check whether true, false, null and/or return object of the info given
-
-### Test 1: Should return true for ID 1 with non-empty info
-
->> Description: Checks if hasNonEmptyInfo returns true for a product with non-empty info.
-- **Expected Outcome**: Returns `true`.
-
-### Test 2: Should return true for ID 3 with non-empty info
-
->> Description: Checks if hasNonEmptyInfo returns true for another product with non-empty info.
-- **Expected Outcome**: Returns `true`.
-
-### Test 3: Should return false for ID 5 with no info object
-
->> Description: Verifies that hasNonEmptyInfo returns false for a product with no info.
-- **Expected Outcome**: Returns `false`.
-
-### Test 4: Should return false when searchKey is missing
-
->> Description: Checks if hasNonEmptyInfo returns false when no searchKey is provided.
-- **Expected Outcome**: Returns `false`.
-
-### Test 5: Should return false for invalid ID
-
->> Description: Verifies that hasNonEmptyInfo returns false for an invalid ID.
-- **Expected Outcome**: Returns `false`.
-
-### Test 6: Should return the product object for ID 1
-
->> Description: Checks if get_a_product_matching_ID returns the correct product object for ID 1.
-- **Expected Outcome**: Returns the complete product object for ID 1.
-
-### Test 7: Should return the product object for ID 5
->> Description: Checks if get_a_product_matching_ID returns the correct product object for ID 5.
-- **Expected Outcome**: Returns the complete product object for ID 5.
-
-### Test 8: Should return null for non-existent ID
-
->> Description: Verifies that get_a_product_matching_ID returns null for a non-existent ID.
-- **Expected Outcome**: Returns `null`.
-
-### Test 9: Should throw error when searchKey is missing
-
->> Description: Checks if get_a_product_matching_ID throws an error when no searchKey is provided.
-- **Expected Outcome**: Throws an error "missing parameter".
-
-## Test to get manufacturers: type, empty array, error for missing search key
-
-### Test 1: Should return manufacturers for 'radio' type
-
->> Description: Checks if get_manufacturers_of_products_by_type returns correct manufacturers for 'radio'.
-- **Expected Outcome**: Returns `["Leila Hökki & co", "Products inc."]`.
-
-### Test 2: Should return manufacturers for 'monitor' type
-
->> Description: Checks if get_manufacturers_of_products_by_type returns correct manufacturers for 'monitor'.
-- **Expected Outcome**: Returns `["Ocean"]`.
-
-### Test 3: Should return an empty array for non-existent type
-
->> Description: Verifies that get_manufacturers_of_products_by_type returns an empty array for a non-existent type.
-- **Expected Outcome**: Returns `[]`.
-
-### Test 4: Should throw error when searchKey is missing
-
->> Description: Checks if get_manufacturers_of_products_by_type throws an error when no searchKey is provided.
-- **Expected Outcome**: Throws an error "missing parameter".
-
-## Test method to check if parameter is missing
-
-### Test 1: One parameter missing
-
->> Description: Verifies that an error is thrown when one parameter is missing.
-- **Expected Outcome**: Throws an error "missing parameter".
-
-### Test 2: Two parameters missing
-
->> Description: Verifies that an error is thrown when two parameters are missing.
-- **Expected Outcome**: Throws an error "missing parameter".
-
-### Test 3: All parameters missing
-
->> Description: Verifies that an error is thrown when all parameters are missing.
-- **Expected Outcome**: Throws an error "missing parameter".
+> **Throws:**
+> - If `searchKey` is missing, it throws an exception `'missing parameter'`.
